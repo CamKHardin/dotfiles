@@ -1,0 +1,7 @@
+---
+# Define Linux (Debian/Kali) apt packages here
+- name: Install base apt packages
+  apt:
+    name: ['curl', 'git', 'neovim', tmux, ripgrep]
+    state: present
+    update_cache: yes

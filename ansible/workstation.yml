@@ -1,0 +1,10 @@
+---
+- name: Provision Workstation
+  hosts: localhost
+  connection: local
+  become: true
+  tasks:
+    - include_tasks: tasks/linux-packages.yml
+      when: ansible_os_family == 'Debian'
+    - include_tasks: tasks/mac-packages.yml
+      when: ansible_os_family == 'Darwin'
