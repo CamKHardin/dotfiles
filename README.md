@@ -35,8 +35,8 @@ first `chezmoi init`:
 # %USERPROFILE%\.config\chezmoi\chezmoi.toml   (Windows)
 [data]
 obsidian_vaults = [
-  "/Users/cameronhardin/Desktop/Theology",
-  "/Users/cameronhardin/Desktop/Obsidian Notes",
+  "/path/to/Your First Vault",
+  "/path/to/Your Second Vault",
 ]
 ```
 
