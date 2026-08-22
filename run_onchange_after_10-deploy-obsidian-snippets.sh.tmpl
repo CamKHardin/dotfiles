@@ -1,0 +1,41 @@
+#!/bin/sh
+# Amber CRT — deploy Obsidian snippets into each configured vault.
+# vault list: obsidian_vaults in ~/.config/chezmoi/chezmoi.toml [data] (machine-local, not committed)
+#
+# snippet-hash: {{ include "dot_local/share/obsidian/snippets/amber-crt-headings.css.tmpl" | sha256sum }}{{ include "dot_local/share/obsidian/snippets/amber-crt-folders.css.tmpl" | sha256sum }}{{ include "dot_local/share/obsidian/snippets/amber-crt-folder-animations.css.tmpl" | sha256sum }}{{ include "dot_local/share/obsidian/snippets/amber-crt-extras.css.tmpl" | sha256sum }}
+# vault-list-hash: {{ .obsidian_vaults | toJson | sha256sum }}
+
+set -eu
+SNIPPET_SRC="{{ .chezmoi.homeDir }}/.local/share/obsidian/snippets"
+SNIPPETS="amber-crt-headings amber-crt-folders amber-crt-folder-animations amber-crt-extras"
+
+{{- if not .obsidian_vaults }}
+echo "amber-crt: no obsidian_vaults configured — skipping. See README."
+exit 0
+{{- end }}
+{{ range .obsidian_vaults }}
+VAULT="{{ . }}"
+if [ ! -d "$VAULT" ]; then
+  echo "amber-crt: skipping missing vault: $VAULT"
+else
+  DEST="$VAULT/.obsidian/snippets"
+  mkdir -p "$DEST"
+  for name in $SNIPPETS; do
+    [ -f "$SNIPPET_SRC/$name.css" ] && cp "$SNIPPET_SRC/$name.css" "$DEST/$name.css"
+  done
+  python3 - "$VAULT/.obsidian/appearance.json" <<'PYEOF'
+import json, os, sys
+path = sys.argv[1]
+new = ["amber-crt-headings","amber-crt-folders","amber-crt-folder-animations","amber-crt-extras"]
+data = {}
+if os.path.exists(path):
+    try: data = json.load(open(path))
+    except Exception: data = {}
+existing = data.get("enabledCssSnippets", [])
+data["enabledCssSnippets"] = existing + [s for s in new if s not in existing]
+os.makedirs(os.path.dirname(path), exist_ok=True)
+json.dump(data, open(path, "w"), indent=2)
+PYEOF
+  echo "amber-crt: snippets deployed + enabled in $VAULT"
+fi
+{{ end -}}

@@ -1,0 +1,34 @@
+/* CRT-style caret: snappy rotation + a brief "power-on" glow pulse.
+   Migrated from ~/Desktop/folder-animations.css — managed by chezmoi,
+   edit .chezmoidata/amber-crt.yaml, not this file directly. */
+{{ $p := .amber_crt -}}
+.nav-folder-collapse-indicator {
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), filter 0.2s ease;
+    filter: drop-shadow(0 0 2px {{ $p.fg }});
+}
+.nav-folder-title:hover .nav-folder-collapse-indicator {
+    filter: drop-shadow(0 0 6px {{ $p.fg }});
+}
+
+/* Phosphor "sweep-in" when a folder expands - mimics a CRT
+   line-scan reveal instead of a plain fade. */
+@keyframes crt-scan-reveal {
+    from { opacity: 0; clip-path: inset(0 0 100% 0); }
+    to   { opacity: 1; clip-path: inset(0 0 0 0); }
+}
+.nav-folder-children {
+    animation: crt-scan-reveal 0.22s steps(6, end);
+}
+
+.nav-folder-title:active .nav-folder-collapse-indicator {
+    transform: scale(0.85) rotate(-5deg);
+}
+
+/* Selected file "boots up" with a quick brightness flash */
+@keyframes crt-select-flash {
+    0% { filter: brightness(2.5); }
+    100% { filter: brightness(1); }
+}
+.nav-file-title.is-active {
+    animation: crt-select-flash 0.15s ease-out;
+}

@@ -1,0 +1,31 @@
+/* Amber CRT: numbered folders get progressively brighter/dimmer
+   phosphor glow instead of distinct hues.
+   Migrated from ~/Desktop/folder-colors.css — managed by chezmoi,
+   edit .chezmoidata/amber-crt.yaml, not this file directly. */
+{{ $p := .amber_crt -}}
+:root {
+    --f00: {{ index $p.folder_ramp 0 }}; --f01: {{ index $p.folder_ramp 1 }};
+    --f02: {{ index $p.folder_ramp 2 }}; --f03: {{ index $p.folder_ramp 3 }};
+    --f04: {{ index $p.folder_ramp 4 }}; --f05: {{ index $p.folder_ramp 5 }};
+    --f06: {{ index $p.folder_ramp 6 }}; --f07: {{ index $p.folder_ramp 7 }};
+    --f08: {{ index $p.folder_ramp 8 }}; --f09: {{ index $p.folder_ramp 9 }};
+}
+.nav-folder-title {
+    transition: color 0.2s ease, text-shadow 0.2s ease, background-color 0.2s ease;
+}
+.nav-folder-title[data-path^="00 "] { color: var(--f00); font-weight: 600; text-shadow: 0 0 6px var(--f00); }
+.nav-folder-title[data-path^="01 "] { color: var(--f01); font-weight: 600; text-shadow: 0 0 5px var(--f01); }
+.nav-folder-title[data-path^="02 "] { color: var(--f02); font-weight: 600; text-shadow: 0 0 5px var(--f02); }
+.nav-folder-title[data-path^="03 "] { color: var(--f03); font-weight: 600; text-shadow: 0 0 4px var(--f03); }
+.nav-folder-title[data-path^="04 "] { color: var(--f04); font-weight: 600; text-shadow: 0 0 4px var(--f04); }
+.nav-folder-title[data-path^="05 "] { color: var(--f05); font-weight: 600; text-shadow: 0 0 3px var(--f05); }
+.nav-folder-title[data-path^="06 "] { color: var(--f06); font-weight: 600; }
+.nav-folder-title[data-path^="07 "] { color: var(--f07); font-weight: 600; }
+.nav-folder-title[data-path^="08 "] { color: var(--f08); font-weight: 600; }
+.nav-folder-title[data-path^="09 "] { color: var(--f09); font-weight: 600; }
+
+/* Amber hover glow, same for all */
+.nav-folder-title:hover {
+    background-color: rgba(255, 176, 0, 0.12);
+    text-shadow: 0 0 8px currentColor;
+}

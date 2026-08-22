@@ -1,0 +1,39 @@
+#!/bin/sh
+# Amber CRT — install JetBrainsMono Nerd Font.
+# run_once_: chezmoi runs this exactly once per machine (tracked by
+# script content hash). Delete the state entry with
+# `chezmoi state delete-bucket --bucket=scriptState` to force a re-run.
+
+set -eu
+
+{{ if eq .chezmoi.os "darwin" -}}
+if brew list --cask font-jetbrains-mono-nerd-font >/dev/null 2>&1; then
+  echo "amber-crt: JetBrainsMono Nerd Font already installed (brew)."
+else
+  brew install --cask font-jetbrains-mono-nerd-font
+fi
+
+{{ else if eq .chezmoi.os "windows" -}}
+# Runs via Git for Windows' sh.exe, but winget.exe itself is a native
+# Windows binary and works fine invoked from bash.
+if winget list --id DEVCOM.JetBrainsMonoNerdFont --exact >/dev/null 2>&1; then
+  echo "amber-crt: JetBrainsMono Nerd Font already installed (winget)."
+else
+  winget install --id DEVCOM.JetBrainsMonoNerdFont --exact \
+    --accept-source-agreements --accept-package-agreements
+fi
+
+{{ else if eq .chezmoi.os "linux" -}}
+# Debian/Kali's apt repos don't carry Nerd Font patched builds, so we
+# use the official nerd-fonts installer script instead of a package.
+if fc-list 2>/dev/null | grep -qi "JetBrainsMono Nerd Font"; then
+  echo "amber-crt: JetBrainsMono Nerd Font already installed."
+else
+  command -v unzip >/dev/null 2>&1 || sudo apt-get update && sudo apt-get install -y unzip
+  curl -fsSL https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/install.sh \
+    | bash -s -- JetBrainsMono
+  fc-cache -f
+  echo "amber-crt: JetBrainsMono Nerd Font installed."
+fi
+
+{{ end -}}

@@ -1,15 +1,18 @@
-/* Amber CRT: hierarchy via glow intensity, not hue. */
+/* Amber CRT: hierarchy via glow intensity, not hue.
+   Migrated from ~/Desktop/heading-colors.css — managed by chezmoi,
+   edit .chezmoidata/amber-crt.yaml, not this file directly. */
+{{ $p := .amber_crt -}}
 :root {
-    --crt-amber: #ffb000;
+    --crt-amber: {{ $p.fg }};
     --crt-dim: .8;
 }
 body {
-    --h1-color: #ffcc66; /* brightest, closest to phosphor white */
-    --h2-color: #ffb833;
-    --h3-color: #ffa500;
-    --h4-color: #e69500;
-    --h5-color: #cc8400;
-    --h6-color: #a86b00; /* dimmest */
+    --h1-color: {{ $p.h1 }}; /* brightest, closest to phosphor white */
+    --h2-color: {{ $p.h2 }};
+    --h3-color: {{ $p.h3 }};
+    --h4-color: {{ $p.h4 }};
+    --h5-color: {{ $p.h5 }};
+    --h6-color: {{ $p.h6 }}; /* dimmest */
     --link-color: var(--crt-amber);
     --tag-color: var(--h3-color);
     --blockquote-color: var(--h5-color);

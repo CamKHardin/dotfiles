@@ -1,0 +1,8 @@
+{{/* Shared banner for TOML-based configs (Alacritty, Starship).
+     JSON targets (Windows Terminal) can't hold comments. */}}
+{{- $p := .amber_crt -}}
+# ─────────────────────────────────────────────
+# Amber CRT — managed by chezmoi, do not edit directly
+# Source of truth: .chezmoidata/amber-crt.yaml
+# bg={{ $p.bg }}  fg={{ $p.fg }}  accent={{ $p.accent }}  opacity={{ $p.opacity }}
+# ─────────────────────────────────────────────

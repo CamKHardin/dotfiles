@@ -1,0 +1,55 @@
+amber_crt:
+  # base surfaces
+  bg: "#000000"
+  bg_alt: "#1A1A1A"
+  fg: "#FFB000"
+  accent: "#FFCC00"
+  cursor: "#FFCC00"
+  selection_bg: "#3A2A00"
+  selection_fg: "#000000"
+
+  # ANSI 16 — amber/black CRT ramp (new: fills out the full terminal
+  # palette so Alacritty/Windows Terminal never fall back to defaults)
+  black: "#000000"
+  red: "#CC3300"
+  green: "#997A00"
+  yellow: "#FFB000"
+  blue: "#B87333"
+  magenta: "#CC6600"
+  cyan: "#997A00"
+  white: "#FFCC66"
+  bright_black: "#4D3800"
+  bright_red: "#FF5500"
+  bright_green: "#CCAA00"
+  bright_yellow: "#FFCC00"
+  bright_blue: "#D4A017"
+  bright_magenta: "#FF8000"
+  bright_cyan: "#CCAA00"
+  bright_white: "#FFE599"
+
+  # Obsidian heading hierarchy (exact values from heading-colors.css)
+  h1: "#ffcc66"
+  h2: "#ffb833"
+  h3: "#ffa500"
+  h4: "#e69500"
+  h5: "#cc8400"
+  h6: "#a86b00"
+
+  # Obsidian numbered-folder glow ramp, brightest (00) to dimmest (09)
+  # (exact values from folder-colors.css)
+  folder_ramp:
+    - "#fff0cc"
+    - "#ffe0a3"
+    - "#ffd27a"
+    - "#ffc352"
+    - "#ffb42e"
+    - "#ffa500"
+    - "#e69200"
+    - "#cc8000"
+    - "#b36e00"
+    - "#995c00"
+
+  # shared knobs
+  opacity: 0.5          # 0.0–1.0 float, used by Alacritty
+  opacity_pct: 50        # 0–100 int, used by Windows Terminal
+  font: "JetBrainsMono Nerd Font"
