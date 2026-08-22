@@ -1,4 +1,4 @@
-{{- $p := .amber -}}
+{{- $p := .amber_crt -}}
 [general]
 import = []
 
@@ -12,8 +12,8 @@ shell = "zsh"
 normal = { family = "{{ $p.font }}", style = "Regular" }
 bold = { family = "{{ $p.font }}", style = "Bold" }
 italic = { family = "{{ $p.font }}", style = "Italic" }
-bold_italic = { family = "{{ $p.font }}", style = "Bold Italic" }}
-size = {{ $p.font_size }}
+bold_italic = { family = "{{ $p.font }}", style = "Bold Italic" }
+size = {{ default 14 $p.font_size }}
 
 [font.feature]
 "liga" = 1
@@ -40,28 +40,28 @@ text = "{{ $p.bg }}"
 cursor = "{{ $p.accent }}"
 
 [colors.selection]
-text = "{{ $p.bg }}"
-background = "{{ $p.accent }}"
+text = "{{ $p.selection_fg }}"
+background = "{{ $p.selection_bg }}"
 
 [colors.normal]
-black = "{{ $p.color0 }}"
-red = "{{ $p.color1 }}"
-green = "{{ $p.color2 }}"
-yellow = "{{ $p.color3 }}"
-blue = "{{ $p.color4 }}"
-magenta = "{{ $p.color5 }}"
-cyan = "{{ $p.color6 }}"
-white = "{{ $p.color7 }}"
+black = "{{ $p.black }}"
+red = "{{ $p.red }}"
+green = "{{ $p.green }}"
+yellow = "{{ $p.yellow }}"
+blue = "{{ $p.blue }}"
+magenta = "{{ $p.magenta }}"
+cyan = "{{ $p.cyan }}"
+white = "{{ $p.white }}"
 
 [colors.bright]
-black = "{{ $p.color8 }}"
-red = "{{ $p.color9 }}"
-green = "{{ $p.color10 }}"
-yellow = "{{ $p.color11 }}"
-blue = "{{ $p.color12 }}"
-magenta = "{{ $p.color13 }}"
-cyan = "{{ $p.color14 }}"
-white = "{{ $p.color15 }}"
+black = "{{ $p.bright_black }}"
+red = "{{ $p.bright_red }}"
+green = "{{ $p.bright_green }}"
+yellow = "{{ $p.bright_yellow }}"
+blue = "{{ $p.bright_blue }}"
+magenta = "{{ $p.bright_magenta }}"
+cyan = "{{ $p.bright_cyan }}"
+white = "{{ $p.bright_white }}"
 
 [mouse]
 hide_when_typing = true

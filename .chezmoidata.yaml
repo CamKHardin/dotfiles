@@ -53,3 +53,5 @@ amber_crt:
   opacity: 0.5          # 0.0–1.0 float, used by Alacritty
   opacity_pct: 50        # 0–100 int, used by Windows Terminal
   font: "JetBrainsMono Nerd Font"
+  font_size: 14
+
