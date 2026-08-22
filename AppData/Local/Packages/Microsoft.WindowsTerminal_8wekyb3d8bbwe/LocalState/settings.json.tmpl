@@ -1,0 +1,58 @@
+{{- $p := .amber -}}
+"$schema": "https://aka.ms/terminal-profiles-schema",
+"defaultProfile": "{00000000-0000-0000-0000-000000000001}",
+"copyOnSelect": true,
+"profiles": {
+  "defaults": {
+    "font": {
+      "face": "{{ $p.font }}",
+      "size": {{ $p.font_size }}
+    },
+    "opacity": {{ mulf $p.opacity 100 }},
+    "useAcrylic": true,
+    "colorScheme": "Amber CRT"
+  },
+  "list": [
+    {
+      "guid": "{00000000-0000-0000-0000-000000000001}",
+      "name": "Amber CRT",
+      "hidden": false,
+      "background": "{{ $p.bg }}",
+      "foreground": "{{ $p.fg }}",
+      "cursorColor": "{{ $p.accent }}",
+      "selectionBackground": "{{ $p.accent }}",
+      "opacity": {{ mulf $p.opacity 100 }},
+      "useAcrylic": true,
+      "font": {
+        "face": "{{ $p.font }}",
+        "size": {{ $p.font_size }}
+      },
+      "colorScheme": "Amber CRT"
+    }
+  ]
+},
+"schemes": [
+  {
+    "name": "Amber CRT",
+    "background": "{{ $p.bg }}",
+    "foreground": "{{ $p.fg }}",
+    "cursorColor": "{{ $p.accent }}",
+    "selectionBackground": "{{ $p.accent }}",
+    "black": "{{ $p.color0 }}",
+    "red": "{{ $p.color1 }}",
+    "green": "{{ $p.color2 }}",
+    "yellow": "{{ $p.color3 }}",
+    "blue": "{{ $p.color4 }}",
+    "purple": "{{ $p.color5 }}",
+    "cyan": "{{ $p.color6 }}",
+    "white": "{{ $p.color7 }}",
+    "brightBlack": "{{ $p.color8 }}",
+    "brightRed": "{{ $p.color9 }}",
+    "brightGreen": "{{ $p.color10 }}",
+    "brightYellow": "{{ $p.color11 }}",
+    "brightBlue": "{{ $p.color12 }}",
+    "brightPurple": "{{ $p.color13 }}",
+    "brightCyan": "{{ $p.color14 }}",
+    "brightWhite": "{{ $p.color15 }}"
+  }
+]

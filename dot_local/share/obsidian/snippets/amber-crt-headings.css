@@ -1,0 +1,32 @@
+/* Amber CRT: hierarchy via glow intensity, not hue. */
+:root {
+    --crt-amber: #ffb000;
+    --crt-dim: .8;
+}
+body {
+    --h1-color: #ffcc66; /* brightest, closest to phosphor white */
+    --h2-color: #ffb833;
+    --h3-color: #ffa500;
+    --h4-color: #e69500;
+    --h5-color: #cc8400;
+    --h6-color: #a86b00; /* dimmest */
+    --link-color: var(--crt-amber);
+    --tag-color: var(--h3-color);
+    --blockquote-color: var(--h5-color);
+    --hr-color: var(--h4-color);
+}
+
+/* Phosphor glow + gentle CRT flicker on headings */
+@keyframes crt-flicker {
+    0%, 100% { opacity: 1; }
+    92% { opacity: 1; }
+    93% { opacity: 0.82; }
+    94% { opacity: 1; }
+}
+.markdown-rendered h1, .markdown-rendered h2, .markdown-rendered h3,
+.markdown-rendered h4, .markdown-rendered h5, .markdown-rendered h6 {
+    text-shadow: 0 0 4px currentColor, 0 0 10px color-mix(in srgb, currentColor 60%, transparent);
+    animation: crt-flicker 6s infinite;
+    letter-spacing: 0.02em;
+}
+.markdown-rendered h1 { text-shadow: 0 0 6px currentColor, 0 0 16px color-mix(in srgb, currentColor 70%, transparent); }
