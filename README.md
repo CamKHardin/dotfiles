@@ -20,6 +20,7 @@ What happens:
 - Re-apply dotfiles: `chezmoi apply`
 - Preview changes: `chezmoi diff`
 - Edit managed files: `chezmoi edit <target-path>`
+- Pull a change: `chezmoi update`
 
 ## Common change workflows
 
