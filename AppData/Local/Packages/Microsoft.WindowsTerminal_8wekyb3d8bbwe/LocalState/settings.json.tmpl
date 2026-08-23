@@ -1,4 +1,4 @@
-{{- $p := .amber -}}
+{{- $p := .amber_crt -}}
 "$schema": "https://aka.ms/terminal-profiles-schema",
 "defaultProfile": "{00000000-0000-0000-0000-000000000001}",
 "copyOnSelect": true,
@@ -38,21 +38,21 @@
     "foreground": "{{ $p.fg }}",
     "cursorColor": "{{ $p.accent }}",
     "selectionBackground": "{{ $p.accent }}",
-    "black": "{{ $p.color0 }}",
-    "red": "{{ $p.color1 }}",
-    "green": "{{ $p.color2 }}",
-    "yellow": "{{ $p.color3 }}",
-    "blue": "{{ $p.color4 }}",
-    "purple": "{{ $p.color5 }}",
-    "cyan": "{{ $p.color6 }}",
-    "white": "{{ $p.color7 }}",
-    "brightBlack": "{{ $p.color8 }}",
-    "brightRed": "{{ $p.color9 }}",
-    "brightGreen": "{{ $p.color10 }}",
-    "brightYellow": "{{ $p.color11 }}",
-    "brightBlue": "{{ $p.color12 }}",
-    "brightPurple": "{{ $p.color13 }}",
-    "brightCyan": "{{ $p.color14 }}",
-    "brightWhite": "{{ $p.color15 }}"
+    "black": "{{ $p.black }}",
+    "red": "{{ $p.red }}",
+    "green": "{{ $p.green }}",
+    "yellow": "{{ $p.yellow }}",
+    "blue": "{{ $p.blue }}",
+    "purple": "{{ $p.magenta }}",
+    "cyan": "{{ $p.cyan }}",
+    "white": "{{ $p.white }}",
+    "brightBlack": "{{ $p.bright_black }}",
+    "brightRed": "{{ $p.bright_red }}",
+    "brightGreen": "{{ $p.bright_green }}",
+    "brightYellow": "{{ $p.bright_yellow }}",
+    "brightBlue": "{{ $p.bright_blue }}",
+    "brightPurple": "{{ $p.bright_magenta }}",
+    "brightCyan": "{{ $p.bright_cyan }}",
+    "brightWhite": "{{ $p.bright_white }}"
   }
 ]
