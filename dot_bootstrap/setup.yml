@@ -31,6 +31,9 @@
         - git
         - htop
         - gh
+        - ca-certificates
+        - curl
+        - gnupg
         - build-essential
         - ripgrep
         - zsh
@@ -99,6 +102,10 @@
     zsh_shell_by_system:
       Linux: /usr/bin/zsh
       Darwin: /bin/zsh
+    docker_arch_by_ansible_arch:
+      x86_64: amd64
+      aarch64: arm64
+      armv7l: armhf
 
   tasks:
     - name: Get my user
@@ -175,6 +182,31 @@
         state: present
       when: ansible_distribution == "Fedora"
 
+    - name: Add Brave Browser keyring (Debian/Ubuntu)
+      ansible.builtin.get_url:
+        url: https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+        dest: /usr/share/keyrings/brave-browser-archive-keyring.gpg
+        mode: "0644"
+      when:
+        - not ansible_check_mode
+        - ansible_os_family == "Debian"
+
+    - name: Add Brave Browser repo (Debian/Ubuntu)
+      ansible.builtin.apt_repository:
+        repo: "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"
+        filename: brave-browser-release
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Install Brave Browser (Debian/Ubuntu)
+      ansible.builtin.apt:
+        name: brave-browser
+        state: present
+        update_cache: true
+      when:
+        - not ansible_check_mode
+        - ansible_os_family == "Debian"
+
     - name: Add Docker repo (Fedora)
       ansible.builtin.yum_repository:
         name: docker
@@ -195,6 +227,52 @@
           - docker-compose-plugin
         state: present
       when: ansible_distribution == "Fedora"
+
+    - name: Set Docker apt architecture
+      ansible.builtin.set_fact:
+        docker_apt_arch: "{{ docker_arch_by_ansible_arch.get(ansible_architecture, ansible_architecture) }}"
+      when: ansible_os_family == "Debian"
+
+    - name: Ensure apt keyrings directory exists
+      ansible.builtin.file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: "0755"
+      when: ansible_os_family == "Debian"
+
+    - name: Add Docker GPG key (Debian/Ubuntu)
+      ansible.builtin.get_url:
+        url: "https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg"
+        dest: /etc/apt/keyrings/docker.asc
+        mode: "0644"
+      when:
+        - not ansible_check_mode
+        - ansible_os_family == "Debian"
+        - ansible_distribution in ["Debian", "Ubuntu"]
+
+    - name: Add Docker repo (Debian/Ubuntu)
+      ansible.builtin.apt_repository:
+        repo: "deb [arch={{ docker_apt_arch }} signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable"
+        filename: docker
+        state: present
+      when:
+        - ansible_os_family == "Debian"
+        - ansible_distribution in ["Debian", "Ubuntu"]
+
+    - name: Install Docker (Debian/Ubuntu)
+      ansible.builtin.apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+        state: present
+        update_cache: true
+      when:
+        - not ansible_check_mode
+        - ansible_os_family == "Debian"
+        - ansible_distribution in ["Debian", "Ubuntu"]
 
     - name: Add Docker group
       ansible.builtin.group:

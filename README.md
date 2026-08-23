@@ -13,6 +13,7 @@ What happens:
 - `run_once_install_ansible.sh` installs Ansible via your system package manager and runs the bootstrap playbook
 - `run_onchange_bootstrap.sh.tmpl` re-runs bootstrap when `dot_bootstrap/setup.yml` changes
 - `run_once_install_ohmyzsh.sh` installs Oh My Zsh once
+- Brave + Docker are configured for Fedora and Debian/Ubuntu flows
 
 ## Operate it
 
