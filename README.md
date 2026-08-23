@@ -1,7 +1,7 @@
 # dotfiles
 
 Chezmoi-managed dotfiles plus an Ansible bootstrap.
-Primary target: Fedora.
+Cross-platform target: Linux (Fedora/Debian/Arch/openSUSE family) and macOS.
 
 ## Use it
 
@@ -10,7 +10,7 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply CamKHardin
 ```
 
 What happens:
-- `run_once_install_ansible.sh` installs Ansible and runs the bootstrap playbook
+- `run_once_install_ansible.sh` installs Ansible via your system package manager and runs the bootstrap playbook
 - `run_onchange_bootstrap.sh.tmpl` re-runs bootstrap when `dot_bootstrap/setup.yml` changes
 - `run_once_install_ohmyzsh.sh` installs Oh My Zsh once
 
