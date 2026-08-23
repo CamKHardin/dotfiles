@@ -21,6 +21,8 @@
           - gcc
           - ripgrep
           - zsh
+          - ffmpeg
+          - uv
           - fzf
           - tmux
           - make
