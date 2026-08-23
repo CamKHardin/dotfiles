@@ -1,8 +1,0 @@
----
-# Define macOS Homebrew packages here
-- name: Install base brew packages
-  homebrew:
-    name: ['curl', 'git', 'neovim', tmux]
-    state: present
-    update_cache: yes
-
