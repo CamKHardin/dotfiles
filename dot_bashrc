@@ -23,5 +23,24 @@ if [ -d ~/.bashrc.d ]; then
     done
 fi
 unset rc
+
 . "$HOME/.cargo/env"
 eval "$(rtx activate bash)"
+
+# Functions
+czinit() {
+    local repo="${1:-CamKHardin}"
+    local src="$HOME/.local/share/chezmoi"
+    if [ -d "$src" ]; then
+        if ! git -C "$src" rev-parse --verify HEAD >/dev/null 2>&1 \
+           || ! git -C "$src" remote get-url origin >/dev/null 2>&1; then
+            echo "chezmoi source dir is broken — removing and re-cloning"
+            rm -rf "$src"
+        fi
+    fi
+    if [ ! -x "$HOME/bin/chezmoi" ] && ! command -v chezmoi >/dev/null 2>&1; then
+        sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply "$repo"
+    else
+        command chezmoi init --apply "$repo"
+    fi
+}
