@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 install_on_fedora() {
     sudo dnf install -y ansible
 }
@@ -34,7 +36,16 @@ case "${OS}" in
         ;;
 esac
 
+PLAYBOOK_PATH=""
+if [ -f "$HOME/.bootstrap/setup.yml" ]; then
+    PLAYBOOK_PATH="$HOME/.bootstrap/setup.yml"
+elif [ -f "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/dot_bootstrap/setup.yml" ]; then
+    PLAYBOOK_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/dot_bootstrap/setup.yml"
+else
+    echo "Unable to find setup.yml playbook."
+    exit 1
+fi
 
-ansible-playbook ~/.bootstrap/setup.yml --ask-become-pass
+ansible-playbook "$PLAYBOOK_PATH" --ask-become-pass
 
 echo "Ansible installation complete."

@@ -16,7 +16,6 @@
         name:
           - git
           - htop
-          - brave-browser
           - gh
           - gcc
           - ripgrep
