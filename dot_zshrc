@@ -1,6 +1,9 @@
 export ZSH="$HOME/.oh-my-zsh"
+
 ZSH_THEME="robbyrussell"
+
 plugins=(git z)
+
 source $ZSH/oh-my-zsh.sh
 
 export EDITOR=hx
@@ -14,8 +17,9 @@ export PATH="$HOME/.scripts/bin:$PATH"
 eval "$(rtx activate zsh)"
 
 # Aliases
-alias v=hx # vi -> helix
-
+alias v=hx   # vi -> helix
+alias vi=hx
+alias vim=hx # vim -> helix
 
 # bun completions
 [ -s "/home/ldonley/.bun/_bun" ] && source "/home/ldonley/.bun/_bun"
